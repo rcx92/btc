@@ -21,6 +21,7 @@ namespace Btcchina
         public Form1()
         {
             InitializeComponent();
+            publicK.Text = "d48f1a78-a10d-4a9e-a16c-90ecbf5ef581";
         }
 
         string accessKey = "";
@@ -211,14 +212,17 @@ namespace Btcchina
             }
             return hashBuilder.ToString();
         }
-        private volatile bool stop = false;
+        private volatile bool stop = true;
         private void Begin_Click(object sender, EventArgs e)
         {
-
-            accessKey = publicK.Text;
-            secretKey = secretK.Text;
-            Thread workerThread = new Thread(work);
-            workerThread.Start();
+            if (stop)
+            {
+                stop = false;
+                accessKey = publicK.Text;
+                secretKey = secretK.Text;
+                Thread workerThread = new Thread(work);
+                workerThread.Start();
+            }
         }
 
         private void end_Click(object sender, EventArgs e)
